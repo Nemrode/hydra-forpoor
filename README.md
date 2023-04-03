@@ -31,29 +31,25 @@ You can see this [link](https://askubuntu.com/questions/1321141/unable-to-instal
 ### <ins>Setup laboratory environment</ins>
 #### <ins>Pull docker images for ssh server</ins>
 ```bash
-docker pull olussot/ssh-server:latest
+docker pull linuxserver/openssh-server
 ```
 
 #### <ins>Launch container</ins>
 ```bash
-docker run --rm -it -p 2222:22 --name ssh-container olussot/ssh-server /bin/bash
+docker run -d --name openssh-server -e SUDO_ACCESS=true -e PASSWORD_ACCESS=true -e USER_PASSWORD="password" -e USER_NAME="test" -p 2222:2222 --restart unless-stopped lscr.io/linuxserver/openssh-server:latest
 ```
-New shell will be opened in container
-Launch this command in container
-```bash
-service ssh start
-```
-keep this shell opened. User : <code>ubuntu</code> Password : <code>password</code>
 
 #### <ins>SSH connection</ins>
+The following commands must be executed on your host
+password : <code>password</code>
 ```bash
-ssh -p 2222 ubuntu@localhost
+ssh -p 2222 test@localhost
 ```
 
 ### <ins>Test project on container</ins>
 You must execute this command in your host at the root of the project
 ```bash
-python main.py -p "ssh" -t "localhost" -u "ubuntu" -P 2222 -w passwords.txt
+python main.py -p "ssh" -t "localhost" -u "test" -P 2222 -w passwords.txt
 ```
 
 ### <ins>Stop and remove container</ins>
