@@ -4,26 +4,11 @@ from wordlist import create_wordlist
 from concurrent.futures import ThreadPoolExecutor
 
 
-# def create_wordlist(wordlist_path):
-
-#     cwd = os.getcwd()
-
-#     if wordlist_path[0] != "/":
-#         wordlist_path = os.getcwd() + "/" + wordlist_path
-#     elif wordlist_path[0] == "." and wordlist_path[1] == "/":
-#         wordlist_path = os.getcwd() + wordlist_path[1:]
-#     else:
-#         wordlist_path = wordlist_path
-
-#     wordlist = open(wordlist_path, "r")
-#     wordlist = wordlist.readlines()
-#     wordlist = [word.strip() for word in wordlist]
-    
-#     return wordlist
-
-
-
 def brute_force_ssh(target, user, port, wordlist):
+    """ Brute force SSH. The function loop on each password of the wordlist and try to connect to the SSH server. 
+    If the connection is successful, the function return the password. 
+    If the connection is not successful, the function continue to loop on the next password. 
+    If the function loop on all the passwords of the wordlist and the connection is not successful, the function return "Password not found in the wordlist"""
 
     wordlists = create_wordlist(wordlist)
 

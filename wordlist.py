@@ -1,6 +1,7 @@
 import os
 
 def create_wordlist(wordlist_path):
+    """Get the path of the wordlist and return a list of words """
 
     cwd = os.getcwd()
 

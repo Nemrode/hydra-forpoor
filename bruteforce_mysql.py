@@ -3,6 +3,7 @@ from wordlist import create_wordlist
 
 
 def connect(host, user, password, port):
+    """ Brute force MySQL. The function try password with the user and the host."""
 
     try:
         MySQLdb.connect(host=host, port=port, user=user, password=password, connect_timeout=3)
@@ -20,6 +21,7 @@ def connect(host, user, password, port):
 
 
 def brute_force_mysql(target, user, port, wordlist):
+    """ Brute force MySQL. The function loop on each password of the wordlist and try to connect to the MySQL server."""
 
     wordlists = create_wordlist(wordlist)
     for word in wordlists:
