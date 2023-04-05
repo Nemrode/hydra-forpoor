@@ -14,6 +14,6 @@ def display_output(user, password, success):
         size += 1
 
     if success == True:
-        print(colored("[+] ", "green") + pattern + colored(" Success", "green"))
+        print(colored("[$] ", "green") + pattern + colored(" Success", "green"))
     else:
         print(colored("[+] ", "yellow") + pattern + colored(" Failed", "red"))

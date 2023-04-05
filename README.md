@@ -49,11 +49,17 @@ ssh -p 2222 test@localhost
 ### <ins>Test project on container</ins>
 You must execute this command in your host at the root of the project
 ```bash
-python main.py -p "ssh" -t "localhost" -u "test" -P 2222 -w passwords.txt
+python main.py -p "ssh" -t "localhost" -u "test" -P 2222 -w passwords.txt -T 5
 ```
 
 ### <ins>Stop and remove container</ins>
-When you are done with the container, you just have to close the shell opened in the container
+```bash
+docker stop openssh-server
+```
+and
+```bash
+docker rm openssh-server
+```
 
 
 ## <ins>MySQL protocol</ins>
@@ -69,9 +75,17 @@ docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -
 ```
 
 #### <ins>Setup container</ins>
+
 ```bash
 docker exec -it mysql-container mysql -uroot -ppassword
 ```
+After this execution you could have this error
+```bash
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+```
+just wait a few seconds and retry the command
+
 and
 ```sql
 ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'password';
