@@ -1,6 +1,7 @@
 import requests, argparse, sys, time
 from bruteforce_ssh import *
 from bruteforce_mysql import *
+from bruteforce_http import *
 from wordlist import create_wordlist
 from termcolor import colored
 
@@ -10,7 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description="Brute force Hydra-forpoor")
     parser.add_argument("-p", "--protocol", help="protcol to use", default="ssh", type=str, required=True)
     parser.add_argument("-t", "--target", help="target to attack (IP or hostname)", required=True)
-    parser.add_argument("-u", "--user", help="user to use", default="root", required=True)
+    parser.add_argument("-u", "--user", help="user to use", default="root", required=False)
     parser.add_argument("-P", "--port", help="port to use", type=int, required=True)
     parser.add_argument("-w", "--wordlist", help="wordlist path to use", required=True)
     parser.add_argument("-T", "--threads", help="number of threads to use", type=int, default=5, required=False)
@@ -28,7 +29,11 @@ def main():
     
     elif args.protocol == "mysql":
         output = brute_force_mysql(args.target, args.user, args.port, args.wordlist, start, args.threads)
-        print(output)
+        sys.exit(output)
+
+    elif args.protocol == "http":
+        output = brute_force_http(args.target, args.port, args.wordlist, start, args.threads)
+        sys.exit(output)
 
     else:
         print("Protocol not supported")

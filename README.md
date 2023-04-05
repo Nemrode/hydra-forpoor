@@ -117,3 +117,31 @@ and
 ```bash
 docker rm mysql-container
 ```
+
+## <ins>HTTP protocol</ins>
+### <ins>Setup laboratory environment</ins>
+#### <ins>Pull docker images for HTTP API</ins>
+```bash
+docker pull olussot/http-api:latest
+```
+
+#### <ins>Launch container</ins>
+```bash
+docker run -d --name http-api -p 8050:8000 olussot/http-api
+```
+The API is available on <code>http://localhost:8050</code>
+
+### <ins>Test project on container</ins>
+You must execute this command in your host at the root of the project
+```bash
+python main.py -p "http" -t "localhost" -P 8050 -w passwords.txt -T 5
+```
+
+### <ins>Stop and remove container</ins>
+```bash
+docker stop http-api
+```
+and
+```bash
+docker rm http-api
+```
